@@ -9,6 +9,7 @@ env:
     SearchTime: ${{ secrets.SEARCHTIME }}
     MyCookie: ${{ secrets.MYCOOKIE }}
     token: ${{ secrets.TOKEN }}
+    scheduletime: ${{ secrets.SCHEDULETIME }}
 jobs:
   checkin:
     runs-on: ubuntu-latest
