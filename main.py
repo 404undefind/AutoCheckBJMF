@@ -127,7 +127,7 @@ from datetime import datetime
 
 
 
-GitHub Actions自动任务
+# GitHub Actions自动任务
 ClassID = os.environ['ClassID']
 X = os.environ['X']
 Y = os.environ['Y']
