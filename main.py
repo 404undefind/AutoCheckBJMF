@@ -8,134 +8,144 @@ import schedule
 from datetime import datetime
 
 # 读取外部 JSON 文件中的数据
-with open('data.json', 'r') as file:
-    json_data = json.load(file)
-    # 普通用户
-    current_directory = os.getcwd()
-    print("----------提醒----------")
-    print("项目地址：https://github.com/JasonYANG170/AutoCheckBJMF")
-    print("请查看教程以获取Cookie和班级ID")
-    print("data.json文件位置：", current_directory)
-    print("----------配置信息(必填)----------")
-    if (json_data['class'] == "123"):
-        print("请通过查看教程抓包获取班级ID")
-        ClassID = input("请输入班级ID：")
-    else:
-        ClassID = json_data['class']
-    print("输入的经纬度格式为x.x")
-    print("腾讯坐标拾取工具：https://lbs.qq.com/getPoint/")
-    if (json_data['lat'] == "123"):
-        X = input("请输入纬度：")
-    else:
-        X = json_data['lat']
-    if (json_data['lng'] == "123"):
-        Y = input("请输入经度：")
-    else:
-        Y = json_data['lng']
-    if (json_data['acc'] == "123"):
-        ACC = input("请输入海拔：")
-    else:
-        ACC = json_data['acc']  # input("请输入海拔：")
-    print("----------配置Cookie----------")
-    print("请通过查看教程抓包获取Cookie")
-    print("教程：https://github.com/JasonYANG170/AutoCheckBJMF/wiki/")
-    print("Tip:90%的失败由Cookie变更导致")
-    if (json_data['cookie'] == "123"):
-        MyCookie = input("请输入你的Cookie：")
-    else:
-        MyCookie = json_data['cookie']  # int(input("请输入检索时长，建议>60s："))
+# with open('data.json', 'r') as file:
+#     json_data = json.load(file)
+#     # 普通用户
+#     current_directory = os.getcwd()
+#     print("----------提醒----------")
+#     print("项目地址：https://github.com/JasonYANG170/AutoCheckBJMF")
+#     print("请查看教程以获取Cookie和班级ID")
+#     print("data.json文件位置：", current_directory)
+#     print("----------配置信息(必填)----------")
+#     if (json_data['class'] == "123"):
+#         print("请通过查看教程抓包获取班级ID")
+#         ClassID = input("请输入班级ID：")
+#     else:
+#         ClassID = json_data['class']
+#     print("输入的经纬度格式为x.x")
+#     print("腾讯坐标拾取工具：https://lbs.qq.com/getPoint/")
+#     if (json_data['lat'] == "123"):
+#         X = input("请输入纬度：")
+#     else:
+#         X = json_data['lat']
+#     if (json_data['lng'] == "123"):
+#         Y = input("请输入经度：")
+#     else:
+#         Y = json_data['lng']
+#     if (json_data['acc'] == "123"):
+#         ACC = input("请输入海拔：")
+#     else:
+#         ACC = json_data['acc']  # input("请输入海拔：")
+#     print("----------配置Cookie----------")
+#     print("请通过查看教程抓包获取Cookie")
+#     print("教程：https://github.com/JasonYANG170/AutoCheckBJMF/wiki/")
+#     print("Tip:90%的失败由Cookie变更导致")
+#     if (json_data['cookie'] == "123"):
+#         MyCookie = input("请输入你的Cookie：")
+#     else:
+#         MyCookie = json_data['cookie']  # int(input("请输入检索时长，建议>60s："))
 
-    # 给定的长字符串
+#     # 给定的长字符串
 
-    # 使用正则表达式提取目标字符串
-    pattern = r'remember_student_59ba36addc2b2f9401580f014c7f58ea4e30989d=[^;]+'
-    result = re.search(pattern, MyCookie)
+#     # 使用正则表达式提取目标字符串
+#     pattern = r'remember_student_59ba36addc2b2f9401580f014c7f58ea4e30989d=[^;]+'
+#     result = re.search(pattern, MyCookie)
 
-    if result:
-        extracted_string = result.group(0)
-        print(extracted_string)
-    else:
-        print("未找到匹配的字符串,检查Cookie是否错误")
-    if (json_data['time'] == 123):
-        SearchTime = int(input("请输入检索间隔，建议>=60s："))
-        print("配置完成，您的信息将写入json文件，下次使用将直接从json文件导入")
+#     if result:
+#         extracted_string = result.group(0)
+#         print(extracted_string)
+#     else:
+#         print("未找到匹配的字符串,检查Cookie是否错误")
+#     if (json_data['time'] == 123):
+#         SearchTime = int(input("请输入检索间隔，建议>=60s："))
+#         print("配置完成，您的信息将写入json文件，下次使用将直接从json文件导入")
 
-        # 1. 读取JSON文件
-        # JSON文件路径
-        file_name = "data.json"
-        file_path = os.path.join(current_directory, file_name)
-        with open(file_path, "r") as file:
-            data = json.load(file)
+#         # 1. 读取JSON文件
+#         # JSON文件路径
+#         file_name = "data.json"
+#         file_path = os.path.join(current_directory, file_name)
+#         with open(file_path, "r") as file:
+#             data = json.load(file)
 
-        # 2. 修改数据
-        data["class"] = ClassID
-        data["lat"] = X
-        data["lng"] = Y
-        data["acc"] = ACC
-        data["time"] = SearchTime
-        data["cookie"] = MyCookie
+#         # 2. 修改数据
+#         data["class"] = ClassID
+#         data["lat"] = X
+#         data["lng"] = Y
+#         data["acc"] = ACC
+#         data["time"] = SearchTime
+#         data["cookie"] = MyCookie
 
-        # 3. 写回JSON文件
-        with open(file_path, "w") as file:
-            json.dump(data, file, indent=4)
+#         # 3. 写回JSON文件
+#         with open(file_path, "w") as file:
+#             json.dump(data, file, indent=4)
 
-        print("数据已保存到"+current_directory+"下的data.json中。")
+#         print("数据已保存到"+current_directory+"下的data.json中。")
 
-    else:
-        SearchTime = json_data['time']  # int(input("请输入检索时长，建议>60s："))
+#     else:
+#         SearchTime = json_data['time']  # int(input("请输入检索时长，建议>60s："))
 
-    print("----------配置定时任务(可选)----------")
-    print("格式为00:00,不设置定时请留空")
-    print("Tip：请注意以上格式并使用英文符号“:”不要使用中文符号“：”")
-    if (json_data['scheduletime'] == ""):
-        scheduletime = input("请输入开启时间：")
-    else:
-        scheduletime = json_data['scheduletime']  # int(input("请输入检索时长，建议>60s："))
-    print("----------配置通知(可选)----------")
-    if (json_data['pushplus'] == "123"):
-        token = input("请输入pushplus推送密钥,不需要请留空：")
-        if(token!=""):
-        # 1. 读取JSON文件
-        # JSON文件路径
-            file_name = "data.json"
-            file_path = os.path.join(current_directory, file_name)
-            with open(file_path, "r") as file:
-                data = json.load(file)
+#     print("----------配置定时任务(可选)----------")
+#     print("格式为00:00,不设置定时请留空")
+#     print("Tip：请注意以上格式并使用英文符号“:”不要使用中文符号“：”")
+#     if (json_data['scheduletime'] == ""):
+#         scheduletime = input("请输入开启时间：")
+#     else:
+#         scheduletime = json_data['scheduletime']  # int(input("请输入检索时长，建议>60s："))
+#     print("----------配置通知(可选)----------")
+#     if (json_data['pushplus'] == "123"):
+#         token = input("请输入pushplus推送密钥,不需要请留空：")
+#         if(token!=""):
+#         # 1. 读取JSON文件
+#         # JSON文件路径
+#             file_name = "data.json"
+#             file_path = os.path.join(current_directory, file_name)
+#             with open(file_path, "r") as file:
+#                 data = json.load(file)
 
-        # 2. 修改数据
-            data["pushplus"] = token
-        # 3. 写回JSON文件
-            with open(file_path, "w") as file:
-                json.dump(data, file, indent=4)
+#         # 2. 修改数据
+#             data["pushplus"] = token
+#         # 3. 写回JSON文件
+#             with open(file_path, "w") as file:
+#                 json.dump(data, file, indent=4)
 
-            print("数据已保存到" + current_directory + "下的data.json中。")
+#             print("数据已保存到" + current_directory + "下的data.json中。")
 
-    else:
-        token = json_data['pushplus']  # input("请输入pushplus密钥：")
-    print("----------信息----------")
-    print("班级ID:" + ClassID)
-    print("经度:" + Y)
-    print("纬度:" + X)
-    print("海拔:" + ACC)
-    print("检索间隔:" + str(SearchTime))
-    print("Cookie值:" + MyCookie)
-    print("定时:" + scheduletime)
-    print("通知token:" + token)
-    print("---------------------")
-# 输出用户输入的内容
-print("一切就绪，程序开始执行")
+#     else:
+#         token = json_data['pushplus']  # input("请输入pushplus密钥：")
+#     print("----------信息----------")
+#     print("班级ID:" + ClassID)
+#     print("经度:" + Y)
+#     print("纬度:" + X)
+#     print("海拔:" + ACC)
+#     print("检索间隔:" + str(SearchTime))
+#     print("Cookie值:" + MyCookie)
+#     print("定时:" + scheduletime)
+#     print("通知token:" + token)
+#     print("---------------------")
+# # 输出用户输入的内容
+# print("一切就绪，程序开始执行")
 
 
 
-# GitHub Actions自动任务
-# ClassID = os.environ['ClassID']
-# X = os.environ['X']
-# Y = os.environ['Y']
-# ACC = os.environ['ACC']
-# SearchTime = os.environ['SearchTime']
-# MyCookie = os.environ['MyCookie']
-# token = os.environ['token']
-#scheduletime = os.environ['scheduletime']
+GitHub Actions自动任务
+ClassID = os.environ['ClassID']
+X = os.environ['X']
+Y = os.environ['Y']
+ACC = os.environ['ACC']
+SearchTime = os.environ['SearchTime']
+MyCookie = os.environ['MyCookie']
+token = os.environ['token']
+scheduletime = os.environ['scheduletime']
+
+# 使用正则表达式提取目标字符串
+pattern = r'remember_student_59ba36addc2b2f9401580f014c7f58ea4e30989d=[^;]+'
+result = re.search(pattern, MyCookie)
+
+if result:
+    extracted_string = result.group(0)
+    print(extracted_string)
+else:
+    print("未找到匹配的字符串,检查Cookie是否错误")
 
 # 本地面板运行
 #ClassID = ''
